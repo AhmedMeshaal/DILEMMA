@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
+});
+
+Route::get('/create-request', function () {
+    return view('pages.CreateRequest');
+});
+
+Route::get('/tags-list', function () {
+    return view('pages.tags');
+});
+
+Route::get('/firms-list', function () {
+    return view('pages.firms');
 });
 
