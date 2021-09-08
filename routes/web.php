@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RequestsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,14 @@ Route::get('/tags-list', function () {
 Route::get('/firms-list', function () {
     return view('pages.firms');
 });
+
+// REQUEST ROUTES CRUD
+Route::get('/requests', [RequestsController::class, 'index']);
+
+Route::post('/requests', [RequestsController::class, 'store']);
+Route::get('/requests/create', [RequestsController::class, 'create']);
+
+Route::get('/requests/{request}/edit', [RequestsController::class, 'edit']);
+Route::put('/requests/{request}', [RequestsController::class, 'update']);
+
 
