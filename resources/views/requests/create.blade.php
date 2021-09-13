@@ -14,28 +14,28 @@
 
 
     @csrf
-
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
     <label>Owner ID</label>
-    <input type="number">
+    <input name="RequestOwnerID" type="number">
     <BR>
     <label>Subject</label>
-    <input type="text">
+    <input name="RequestSubject" type="text">
     <BR>
     <label>Description</label>
-    <textarea></textarea>
+    <textarea name="RequestDescription"></textarea>
     <BR>
     <label>Status</label>
-    <input type="number">
+    <input name="RequestStatus" type="number">
     <BR>
     <label>Cost</label>
-    <input type="number">
+    <input name="RequestRangeCost" type="number">
     <BR>
     <label>Request Date</label>
-    <input type="datetime-local">
+    <input name="RequestDate" type="datetime-local">
     <BR>
     <label>Appointment Date</label>
-    <input type="date">
+    <input name="AppoinmentDate" type="date">
     <BR> <BR>
 
     <button>Create</button>

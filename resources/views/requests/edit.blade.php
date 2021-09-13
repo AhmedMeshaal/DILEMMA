@@ -10,38 +10,48 @@
 
 <body>
 
-<form method="POST" action="/requests/{{ $request->ID }}">
+<form method="POST" action="/requests/update/{{ $request_id }}" name="frmName" id="frmName">
 
-    @method('PUT')
-
+    @method('POST')
     @csrf
 
-{{--    <label>ID</label>--}}
-{{--    <input type="number" value="{{ $request->ID }}">--}}
-{{--    <BR>--}}
     <label>Owner ID</label>
-    <input type="number" value="{{ $request->RequestOwnerID }}">
+    <input name="RequestOwnerID" type="number" value="{{ $request->RequestOwnerID }}">
+
     <BR>
+
     <label>Subject</label>
-    <input type="text" value="{{ $request->RequestSubject }}">
+    <input name="RequestSubject" type="text" value="{{ $request->RequestSubject }}">
+
     <BR>
+
     <label>Description</label>
-    <textarea>{{ $request->RequestDescription }}</textarea>
+    <textarea name="RequestDescription">{{ $request->RequestDescription }}</textarea>
+
     <BR>
+
     <label>Status</label>
-    <input type="number" value="{{ $request->RequestStatus }}">
+    <input name="RequestStatus" type="number" value="{{ $request->RequestStatus }}">
+
     <BR>
+
     <label>Cost</label>
-    <input type="number" value="{{ $request->RequestRangeCost }}">
+    <input name="RequestRangeCost" type="number" value="{{ $request->RequestRangeCost }}">
+
     <BR>
+
     <label>Request Date</label>
-    <input type="datetime-local" value="{{ $request->RequestDate }}">
+    <input name="RequestDate" type="datetime-local" value="{{ $request->RequestDate }}">
+
     <BR>
+
     <label>Appointment Date</label>
-    <input type="date" value="{{ $request->AppoinmentDate }}">
+    <input name="AppoinmentDate" type="date" value="{{ $request->AppoinmentDate }}">
 <BR> <BR>
 
     <button>UPDATE</button>
+
+
 </form>
 
 </body>

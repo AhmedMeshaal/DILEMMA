@@ -10,17 +10,17 @@
 
 <body>
 
-    @foreach($requests as $request)
+    @foreach($records as $record)
 
     <ul>
-        <li><strong>ID</strong> <span>{{ $request->ID }}</span></li>
-        <li><strong>Owner ID</strong> <span>{{ $request->RequestOwnerID }}</span></li>
-        <li><strong>Request Subject</strong> <span>{{ $request->RequestSubject }}</span></li>
-        <li><strong>Request Description</strong> <span>{{ $request->RequestDescription }}</span></li>
-        <li><strong>Request Status</strong> <span>{{ $request->RequestStatus }}</span></li>
-        <li><strong>Request Cost</strong> <span>{{ $request->RequestRangeCost }}</span></li>
-        <li><strong>Request Date</strong> <span>{{ $request->RequestDate }}</span></li>
-        <li><strong>Request Appointment Date</strong> <span>{{ $request->AppoinmentDate }}</span></li>
+        <li><strong>ID</strong> <span>{{ $record->ID }}</span></li>
+        <li><strong>Owner ID</strong> <span>{{ $record->RequestOwnerID }}</span></li>
+        <li><strong>Request Subject</strong> <span>{{ $record->RequestSubject }}</span></li>
+        <li><strong>Request Description</strong> <span>{{ $record->RequestDescription }}</span></li>
+        <li><strong>Request Status</strong> <span>{{ $record->RequestStatus }}</span></li>
+        <li><strong>Request Cost</strong> <span>{{ $record->RequestRangeCost }}</span></li>
+        <li><strong>Request Date</strong> <span>{{ $record->RequestDate }}</span></li>
+        <li><strong>Request Appointment Date</strong> <span>{{ $record->AppoinmentDate }}</span></li>
     </ul>
     @endforeach
 

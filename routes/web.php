@@ -18,10 +18,6 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::get('/create-request', function () {
-    return view('pages.CreateRequest');
-});
-
 Route::get('/tags-list', function () {
     return view('pages.tags');
 });
@@ -32,11 +28,12 @@ Route::get('/firms-list', function () {
 
 // REQUEST ROUTES CRUD
 Route::get('/requests', [RequestsController::class, 'index']);
+Route::get('/requests/show/{request_id}', [RequestsController::class, 'show']);
 
 Route::post('/requests', [RequestsController::class, 'store']);
 Route::get('/requests/create', [RequestsController::class, 'create']);
 
-Route::get('/requests/{request}/edit', [RequestsController::class, 'edit']);
-Route::put('/requests/{request}', [RequestsController::class, 'update']);
+Route::get('/requests/edit/{request_id}', [RequestsController::class, 'edit']);
+Route::post('/requests/update/{request_id}', [RequestsController::class, 'update']);
 
 
