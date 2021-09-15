@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RequestsController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,4 +37,10 @@ Route::get('/requests/create', [RequestsController::class, 'create']);
 Route::get('/requests/edit/{request_id}', [RequestsController::class, 'edit']);
 Route::post('/requests/update/{request_id}', [RequestsController::class, 'update']);
 
+
+Route::get('/auth/showLoginForm', [LoginController::class, 'showLoginForm'])->name('auth.showLoginForm');
+Route::get('/auth/register', [LoginController::class, 'register'])->name('auth.register');
+Route::post('/auth/registration', [LoginController::class, 'registration']);
+
+Route::get('/auth/login', [LoginController::class, 'login']);
 
