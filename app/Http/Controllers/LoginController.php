@@ -44,22 +44,28 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $user = DB::table('users')->whereEmailAndPassword($request->input('email'), $request->input('password'))->first;
+        $remember = true;
 
-        if($user){
-            if(Hash::check($user->password,Hash::make($request->input('password')))){
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-                if(Auth::attempt($user)){
-                    $request->session()->regenerate();
+//        if(DB::table('users')->where($request->input('email'), )->first){
+//            $remember = true;
+//        } else {
+//            $remember = false;
+//        }
 
-                    return redirect()->intended('/index');
-                }
-            }
+        if (Auth::attempt($credentials, $remember)) {
+            $request->session()->regenerate();
 
-        } else{
-
-            echo 'login failed';
+            return redirect()->intended('/');
         }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
 
     }
 
