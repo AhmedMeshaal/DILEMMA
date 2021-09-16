@@ -2,7 +2,7 @@
 
 namespace App\Http\Request;
 namespace App\Http\Controllers;
-use App\Models\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -38,12 +38,14 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        echo Auth::id();
         return view('auth.login');
     }
 
 
     public function login(Request $request)
     {
+
         $remember = true;
 
         $credentials = $request->validate([
@@ -57,7 +59,7 @@ class LoginController extends Controller
 //            $remember = false;
 //        }
 
-        if (Auth::attempt($credentials, $remember)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->intended('/');

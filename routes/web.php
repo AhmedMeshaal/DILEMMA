@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard');
-});
+})->middleware('auth');
 
 Route::get('/tags-list', function () {
     return view('pages.tags');
@@ -41,6 +41,7 @@ Route::post('/requests/update/{request_id}', [RequestsController::class, 'update
 Route::get('/auth/showLoginForm', [LoginController::class, 'showLoginForm'])->name('auth.showLoginForm');
 Route::get('/auth/register', [LoginController::class, 'register'])->name('auth.register');
 Route::post('/auth/registration', [LoginController::class, 'registration']);
+Route::post('/auth/login', [LoginController::class, 'login'])->name('login');
 
 
 Route::get('/profile', function () {
@@ -50,4 +51,3 @@ Route::get('/profile', function () {
 //Route::get('/api/user', function () {
     // Only authenticated users may access this route...
 //})->middleware('auth.basic.once');
-

@@ -11,7 +11,8 @@
 <body>
 
 <div class="row">
-<form action="/showLoginForm" method="POST">
+<form action="{{ route('login') }}" method="POST">
+    @csrf
     Email: <input type="text" name="email" placeholder="enter email">
     <BR>
     Password: <input type="password" name="password" placeholder="enter password">
