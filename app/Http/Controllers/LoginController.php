@@ -77,12 +77,12 @@ class LoginController extends Controller
         Auth::logout();
 
         // LOGOUT OTHER DEVICES
-        Auth::guard()->logoutOtherDevices();
+//        Auth::guard()->logoutOtherDevices();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/tags-list');
     }
 }

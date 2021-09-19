@@ -42,12 +42,5 @@ Route::get('/auth/showLoginForm', [LoginController::class, 'showLoginForm'])->na
 Route::get('/auth/register', [LoginController::class, 'register'])->name('auth.register');
 Route::post('/auth/registration', [LoginController::class, 'registration']);
 Route::post('/auth/login', [LoginController::class, 'login'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
-Route::get('/profile', function () {
-    // Only authenticated users may access this route...
-})->middleware('auth.basic');
-
-//Route::get('/api/user', function () {
-    // Only authenticated users may access this route...
-//})->middleware('auth.basic.once');
