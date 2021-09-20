@@ -1,18 +1,6 @@
-<!DOCTYPE html>
+@extends('layouts.layout')
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Request</title>
-</head>
-
-<body>
-
-<div class="row">
-
-</div>
+@section('content')
 <table class="table table-bordered">
     <thead>
     Single Record
@@ -30,8 +18,4 @@
     </ul>
 
 </table>
-
-</body>
-
-</html>
-
+@stop

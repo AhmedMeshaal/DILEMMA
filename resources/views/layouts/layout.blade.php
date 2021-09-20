@@ -1,18 +1,20 @@
 <!doctype html>
 <html>
 <head>
+{{--    <div class="wrapper">--}}
     @include('includes.head')
+{{--    </div>--}}
 </head>
 <body>
-<div class="container">
-    <header class="row">
+<div class="wrapper">
+    <header>
         @include('includes.header')
     </header>
-    <div id="main" class="row">
+    <div>
         @yield('content')
     </div>
     <BR><BR>
-    <footer class="row">
+    <footer>
         @include('includes.footer')
     </footer>
 </div>
