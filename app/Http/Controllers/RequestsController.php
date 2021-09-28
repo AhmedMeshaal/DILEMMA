@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Collection;
 use App\Models\Request;
 use DB;
 
@@ -29,13 +30,14 @@ class RequestsController extends Controller
 //        VIEW CREATE FORM PAGE
         public function create()
         {
-            return view('requests.create');
+//            THE BENEFIT OF PLUCK METHOD TO FETCH A SPECIFIC COLUMN ONLY
+            $arrDataTags = DB::table('tag')->pluck('Name');
+            return view('requests.create', ['records' => $arrDataTags]);
         }
 
 //        STORE THE INSERTED DATA IN THE FORM
         public function store()
         {
-
             DB::table('requests')->insert([
                 'RequestOwnerID' => request('RequestOwnerID'),
                 'RequestSubject' => request('RequestSubject'),

@@ -28,7 +28,14 @@
     <BR>
     <label>Appointment Date</label>
     <input name="AppoinmentDate" type="date">
-    <BR> <BR>
+    <BR>
+    <lable>Tags</lable>
+    <select name="tag">
+        @foreach($records as $record)
+            <option value="{{ $record }}">{{ $record }}</option>
+        @endforeach
+    </select>
+    <BR><BR>
 
     <button>Create</button>
 </form>
