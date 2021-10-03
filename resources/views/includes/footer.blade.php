@@ -1,1 +1,1 @@
-<div id="copyright text-right">© Copyright 2017 </div>
+{{--<div id="copyright text-right">© Copyright 2017 </div>--}}

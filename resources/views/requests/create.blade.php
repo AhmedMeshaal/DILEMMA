@@ -23,19 +23,31 @@
     <label>Cost</label>
     <input name="RequestRangeCost" type="number">
     <BR>
-    <label>Request Date</label>
-    <input name="RequestDate" type="datetime-local">
+{{--    <label>Request Date</label>--}}
+{{--    <input name="RequestDate" type="datetime-local">--}}
     <BR>
     <label>Appointment Date</label>
     <input name="AppoinmentDate" type="date">
     <BR>
+
+
     <lable>Tags</lable>
-    <select name="tag">
-        @foreach($records as $record)
-            <option value="{{ $record }}">{{ $record }}</option>
+    <select name="TagID">
+        @foreach($tags as $tag)
+            <option value="{{ $tag->ID }}">{{ $tag->Name }}</option>
         @endforeach
     </select>
     <BR><BR>
+
+
+
+
+
+
+
+
+
+
 
     <button>Create</button>
 </form>

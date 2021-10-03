@@ -38,7 +38,17 @@
 
     <label>Appointment Date</label>
     <input name="AppoinmentDate" type="date" value="{{ $request->AppoinmentDate }}">
-<BR> <BR>
+    <BR>
+
+    <label>Tag Name</label>
+    <select name="TagID">
+        @foreach($tags as $tag)
+            <option value="{{ $tag->ID }}">{{ $tag->Name }}</option>
+        @endforeach
+    </select>
+
+    <BR>
+    <BR>
 
     <button>UPDATE</button>
 

@@ -3,7 +3,7 @@
 @section('content')
 <body>
 
-<div class="row">
+{{--<div class="row">--}}
 <form action="{{ route('login') }}" method="POST">
     @csrf
     Email: <input type="text" name="email" placeholder="enter email">
@@ -14,6 +14,6 @@
     <BR>
     <a href="{{ route('auth.register') }}">I have no account, create new</a>
 </form>
-</div>
+{{--</div>--}}
 </body>
 @stop

@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Tag;
 use Illuminate\Support\Collection;
 use App\Models\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 use DB;
+use function Doctrine\Common\Cache\Psr6\get;
+
 
 
 class RequestsController extends Controller
@@ -12,7 +17,12 @@ class RequestsController extends Controller
 //        RETRIEVE ALL TABLE ROWS
         public function index()
         {
-            $arrDataRecords = DB::table('requests')->get();
+            $arrDataRecords = DB::table('requests')->join('tag', 'TagID', '=', 'tag.ID')->select('requests.*', 'tag.Name as TagName')->get();
+
+//            echo "<pre>";
+//            print_r($arrDataRecords); exit();
+//            echo "</pre>";
+
             return view('requests.index', ['records' => $arrDataRecords]);
         }
 
@@ -30,9 +40,8 @@ class RequestsController extends Controller
 //        VIEW CREATE FORM PAGE
         public function create()
         {
-//            THE BENEFIT OF PLUCK METHOD TO FETCH A SPECIFIC COLUMN ONLY
-            $arrDataTags = DB::table('tag')->pluck('Name');
-            return view('requests.create', ['records' => $arrDataTags]);
+            $arrTags = DB::table('tag')->get();
+            return view('requests.create', ['tags' => $arrTags]);
         }
 
 //        STORE THE INSERTED DATA IN THE FORM
@@ -40,11 +49,12 @@ class RequestsController extends Controller
         {
             DB::table('requests')->insert([
                 'RequestOwnerID' => request('RequestOwnerID'),
+                'TagID' => request('TagID'),
                 'RequestSubject' => request('RequestSubject'),
                 'RequestDescription' => request('RequestDescription'),
                 'RequestStatus' => request('RequestStatus'),
                 'RequestRangeCost' => request('RequestRangeCost'),
-                'RequestDate' => request('RequestDate'),
+                'RequestDate' => Carbon::now(),
                 'AppoinmentDate' => request('AppoinmentDate')
                 ]);
 
@@ -56,9 +66,12 @@ class RequestsController extends Controller
         public function edit(Request $request)
         {
             $request_id =  request('request_id');
+            $arrTags = DB::table('tag')->get();
+
             return view('requests.edit',[
                 'request_id'=>$request_id,
                 'request'=>$request,
+                'tags' => $arrTags,
             ]);
         }
 
@@ -76,6 +89,7 @@ class RequestsController extends Controller
                 'RequestRangeCost' => request('RequestRangeCost'),
                 'RequestDate' => request('RequestDate'),
                 'AppoinmentDate' => request('AppoinmentDate'),
+                'TagID' => request('TagID'),
             );
 
             DB::table('requests')->where('requests.ID', $request_id)->update($arrDataUpdate);
