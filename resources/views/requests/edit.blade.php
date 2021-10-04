@@ -31,8 +31,8 @@
 
     <BR>
 
-    <label>Request Date</label>
-    <input name="RequestDate" type="datetime-local" value="{{ $request->RequestDate }}">
+{{--    <label>Request Date</label>--}}
+{{--    <input name="RequestDate" type="datetime-local" value="{{ $request->RequestDate }}">--}}
 
     <BR>
 

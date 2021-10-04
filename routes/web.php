@@ -44,3 +44,5 @@ Route::post('/auth/registration', [LoginController::class, 'registration']);
 Route::post('/auth/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+
+Route::get('/requests/display-request-image/{request_id}', [RequestsController::class, 'display_request_image'])->name('request_file');

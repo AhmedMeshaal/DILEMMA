@@ -2,15 +2,15 @@
 
 @section('content')
 
-<form method="POST" action="/requests">
+<form method="POST" action="/requests" enctype="multipart/form-data">
 
 
     @csrf
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-    <label>Owner ID</label>
-    <input name="RequestOwnerID" type="number">
-    <BR>
+{{--    <label>Owner ID</label>--}}
+{{--    <input name="RequestOwnerID" type="number">--}}
+{{--    <BR>--}}
     <label>Subject</label>
     <input name="RequestSubject" type="text">
     <BR>
@@ -21,16 +21,16 @@
     <input name="RequestStatus" type="number">
     <BR>
     <label>Cost</label>
-    <input name="RequestRangeCost" type="number">
+    <input name="OfferPrice" type="number">
     <BR>
-{{--    <label>Request Date</label>--}}
-{{--    <input name="RequestDate" type="datetime-local">--}}
+
+    File Name: <input name="DocumentName" type="text"><BR>
+    Any File: <input type="file" name="FilePath">
+
     <BR>
     <label>Appointment Date</label>
-    <input name="AppoinmentDate" type="date">
+    <input name="AppointmentDate" type="date">
     <BR>
-
-
     <lable>Tags</lable>
     <select name="TagID">
         @foreach($tags as $tag)
@@ -38,16 +38,6 @@
         @endforeach
     </select>
     <BR><BR>
-
-
-
-
-
-
-
-
-
-
 
     <button>Create</button>
 </form>

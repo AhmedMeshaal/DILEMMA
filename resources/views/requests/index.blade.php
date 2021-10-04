@@ -34,12 +34,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-8 col-lg-12">
-                    <h6 class="text-muted">Created at -- {{ $record->RequestDate }}</h6>
+                    <h6 class="text-muted">Created at -- {{ $record->DateSubmitted }}</h6>
 
             <ul class="list-group list-unstyled row">
                 <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <div class="image-parent">
-                        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/don_quixote.jpg" class="img-fluid" alt="quixote">
+                        <img src="/requests/display-request-image/{{ $record->ID }}" class="img-fluid" alt="quixote">
                         <BR><BR>
                         <span class="badge badge-info badge-pill">{{ $record->TagName }}</span>
                     </div>

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Models\Tag;
+use Carbon\Traits\Date;
 use Illuminate\Support\Collection;
-use App\Models\Request;
+use Illuminate\Http\Request;
+use App\Models\Requests;
+use App\Models\RequestDocument;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\File;
 use DB;
 use function Doctrine\Common\Cache\Psr6\get;
 
@@ -45,18 +49,34 @@ class RequestsController extends Controller
         }
 
 //        STORE THE INSERTED DATA IN THE FORM
-        public function store()
+        public function store(Request $request)
         {
-            DB::table('requests')->insert([
-                'RequestOwnerID' => request('RequestOwnerID'),
-                'TagID' => request('TagID'),
-                'RequestSubject' => request('RequestSubject'),
-                'RequestDescription' => request('RequestDescription'),
-                'RequestStatus' => request('RequestStatus'),
-                'RequestRangeCost' => request('RequestRangeCost'),
-                'RequestDate' => Carbon::now(),
-                'AppoinmentDate' => request('AppoinmentDate')
-                ]);
+            $TagID = request('TagID');
+            $Subject = request('RequestSubject');
+            $Description = request('RequestDescription');
+            $Status = request('RequestStatus');
+            $Offer = request('OfferPrice');
+            $Appointment = request('AppointmentDate');
+            $DocumentName = request('DocumentName');
+
+            $arrInsert = array(
+                'SubmittedBy' => Auth::id(),
+                'TagID' => $TagID,
+                'RequestSubject' => $Subject,
+                'RequestDescription' => $Description,
+                'RequestStatus' => $Status,
+                'OfferPrice' => $Offer,
+                'DateSubmitted' => Date("Y-m-d H:i:s", time()),
+                'AppointmentDate' => $Appointment,
+                'DocumentName' => $DocumentName
+                );
+
+            $path = $request->file('FilePath')->store('FilePath');
+            $arrInsert['FilePath'] = $path;
+
+//            print_r($arrInsert); exit();
+
+            DB::table("Requests")->insert($arrInsert);
 
 //            TRY TO REDIRECT TO THE CREATED ID LATER
             return redirect('/requests');
@@ -66,6 +86,8 @@ class RequestsController extends Controller
         public function edit(Request $request)
         {
             $request_id =  request('request_id');
+
+            $request = DB::table('requests')->find($request_id);
             $arrTags = DB::table('tag')->get();
 
             return view('requests.edit',[
@@ -87,7 +109,7 @@ class RequestsController extends Controller
                 'RequestDescription' => request('RequestDescription'),
                 'RequestStatus' => request('RequestStatus'),
                 'RequestRangeCost' => request('RequestRangeCost'),
-                'RequestDate' => request('RequestDate'),
+                'RequestDate' => Date("Y-m-d H:i:s", time()),
                 'AppoinmentDate' => request('AppoinmentDate'),
                 'TagID' => request('TagID'),
             );
@@ -95,7 +117,29 @@ class RequestsController extends Controller
             DB::table('requests')->where('requests.ID', $request_id)->update($arrDataUpdate);
 
             return redirect('/requests/show/'.$request_id)->with('status', 'Record updated!');
-
         }
+
+    public function display_request_image()
+    {
+
+        $request_id = request('request_id');
+        $arrRequestFile = DB::table("requests")
+            ->where("ID","=",$request_id)
+            ->get();
+
+
+        $filename_path = storage_path()."/app/".$arrRequestFile[0]->FilePath;
+        if (exif_imagetype($filename_path)){
+            header('Content-Description: File Transfer');
+            header('Content-Type: content-type: image/jpeg');
+            //header('Content-Disposition: attachment; filename="'.$arrClaimDoc['Name'].".".$ext.'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($filename_path));
+        }
+        readfile($filename_path);
+        return NULL;
+    }
 
 }
