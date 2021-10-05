@@ -22,11 +22,6 @@ class RequestsController extends Controller
         public function index()
         {
             $arrDataRecords = DB::table('requests')->join('tag', 'TagID', '=', 'tag.ID')->select('requests.*', 'tag.Name as TagName')->get();
-
-//            echo "<pre>";
-//            print_r($arrDataRecords); exit();
-//            echo "</pre>";
-
             return view('requests.index', ['records' => $arrDataRecords]);
         }
 
@@ -37,7 +32,6 @@ class RequestsController extends Controller
 
             $singleRecord = DB::table('requests')->find($request_id);
 //            print_r($singleRecord);
-
             return view('requests.show', ['arrRecordData' => $singleRecord]);
         }
 
@@ -119,27 +113,27 @@ class RequestsController extends Controller
             return redirect('/requests/show/'.$request_id)->with('status', 'Record updated!');
         }
 
-    public function display_request_image()
-    {
+        public function display_request_image()
+        {
 
-        $request_id = request('request_id');
-        $arrRequestFile = DB::table("requests")
-            ->where("ID","=",$request_id)
-            ->get();
+            $request_id = request('request_id');
+            $arrRequestFile = DB::table("requests")
+                ->where("ID","=",$request_id)
+                ->get();
 
 
-        $filename_path = storage_path()."/app/".$arrRequestFile[0]->FilePath;
-        if (exif_imagetype($filename_path)){
-            header('Content-Description: File Transfer');
-            header('Content-Type: content-type: image/jpeg');
-            //header('Content-Disposition: attachment; filename="'.$arrClaimDoc['Name'].".".$ext.'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($filename_path));
+            $filename_path = storage_path()."/app/".$arrRequestFile[0]->FilePath;
+            if (exif_imagetype($filename_path)){
+                header('Content-Description: File Transfer');
+                header('Content-Type: content-type: image/jpeg');
+                //header('Content-Disposition: attachment; filename="'.$arrClaimDoc['Name'].".".$ext.'"');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($filename_path));
+            }
+            readfile($filename_path);
+            return NULL;
         }
-        readfile($filename_path);
-        return NULL;
-    }
 
 }

@@ -9,7 +9,7 @@
     <ul class="nav-list">
         <li><a href="/">Dashboard</a></li>
         <li><a href="/requests">Requests</a></li>
-        <li><a href="/tags-list">Tags</a></li>
+        <li><a href="/tagged/tags-list">Tags</a></li>
         <li><a href="/firms-list">Firms</a></li>
 
         <li><a href="/auth/showLoginForm" type="button" class="btn btn-info">Login</a></li>

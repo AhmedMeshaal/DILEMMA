@@ -19,9 +19,6 @@
         clear: both;
     }
 
-    body{
-        padding: 2rem 0rem;
-    }
     .image-parent {
         max-width: 40px;
     }
