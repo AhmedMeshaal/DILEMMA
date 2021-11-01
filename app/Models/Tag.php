@@ -14,6 +14,6 @@ class Tag extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'ID','Name'
+        'ID','Name','Date'
     ];
 }

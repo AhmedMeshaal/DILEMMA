@@ -395,6 +395,13 @@
         .widget-49 .widget-49-meeting-action a {
             text-transform: uppercase;
         }
+        #myInput {
+            padding: 20px;
+            margin-top: -6px;
+            border: 0;
+            border-radius: 0;
+            background: #f1f1f1;
+        }
     </style>
 
 
@@ -402,20 +409,43 @@
                 <div class="container">
                     <div id="users">
                         <BR>
+                <form method="POST" action="/tagged/tags" autocomplete="off">
+
+                    @csrf
+                    @method('post')
+
                         <div class="row">
-                            <div class="col-md-8">
-                                <input class="search" placeholder="Search" />
+                            <div class="col-md-4">
+                                <input name="SearchTagName" id="SearchTagName" type="text" maxlength="255"  placeholder="type a tag">
                             </div>
                             <div class="col-md-4 offset-md-4">
-                                <button class="sort" data-sort="name">
-                                    Sort by name
-                                </button>
+                                <select class="form-control" id="sel1" name="SearchDropDown" id="SearchDropDown">
+
+                                    <option><a href="#"></a> -- Tags Filter -- </option>
+
+                                    @foreach($tagsListAll as $tag)
+
+                                        <option><a href="#">{{ $tag->Name }}</a></option>
+
+                                    @endforeach
+
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 offset-md-4">
+                                <button type="submit" name="Search" id="Search" value="Search" class="btn btn-info mt-4">{{ __('Search') }}</button>
+                                <button type="button" name="Clear" id="Clear"  value="Clear" onclick="document.location='/tagged/tags'" class="btn btn-info mt-4">{{ __('Show All Tags') }}</button>
                             </div>
                         </div>
+                </form>
                     </div>
 
+
                     <div class="row list">
-                        @foreach($tags as $tag)
+
+                        <h3 class="mb-0">There are {{ $tagList->total() }} tag/s</h3>
+                        @php $counter = 1; if($page_num != "All"){$counter = ((($tagList->currentPage() - 1) * $page_num) + 1);};  @endphp
+                        @foreach($tagList as $tag)
 
                             <div class="col-lg-4">
                             <div class="card card-margin">
@@ -448,77 +478,59 @@
                         </div>
 
                         @endforeach
-                        {{--                        <div class="col-lg-4">--}}
-{{--                            <div class="card card-margin">--}}
-{{--                                <div class="card-header no-border">--}}
-{{--                                    <h5 class="card-title">NMOM</h5>--}}
-{{--                                </div>--}}
-{{--                                <div class="card-body pt-0">--}}
-{{--                                    <div class="widget-49">--}}
-{{--                                        <div class="widget-49-title-wrapper">--}}
-{{--                                            <div class="widget-49-date-warning">--}}
-{{--                                                <span class="widget-49-date-day">13</span>--}}
-{{--                                                <span class="widget-49-date-month">apr</span>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="widget-49-meeting-info">--}}
-{{--                                                <span class="widget-49-pro-title">PRO-08235 Lexa Corp.</span>--}}
-{{--                                                <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        <ol class="widget-49-meeting-points">--}}
-{{--                                            <li class="widget-49-meeting-item"><span>Scheming module is removed</span></li>--}}
-{{--                                            <li class="widget-49-meeting-item"><span>App design contract confirmed</span></li>--}}
-{{--                                            <li class="widget-49-meeting-item"><span>Client request to send invoice</span></li>--}}
-{{--                                        </ol>--}}
-{{--                                        <div class="widget-49-meeting-action">--}}
-{{--                                            <a href="#" class="btn btn-sm btn-flash-border-warning">View All</a>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-lg-4">--}}
-{{--                            <div class="card card-margin">--}}
-{{--                                <div class="card-header no-border">--}}
-{{--                                    <h5 class="card-title">XMOM</h5>--}}
-{{--                                </div>--}}
-{{--                                <div class="card-body pt-0">--}}
-{{--                                    <div class="widget-49">--}}
-{{--                                        <div class="widget-49-title-wrapper">--}}
-{{--                                            <div class="widget-49-date-success">--}}
-{{--                                                <span class="widget-49-date-day">22</span>--}}
-{{--                                                <span class="widget-49-date-month">apr</span>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="widget-49-meeting-info">--}}
-{{--                                                <span class="widget-49-pro-title">PRO-027865 Opera module</span>--}}
-{{--                                                <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        <ol class="widget-49-meeting-points">--}}
-{{--                                            <li class="widget-49-meeting-item"><span>Scope is revised and updated</span></li>--}}
-{{--                                            <li class="widget-49-meeting-item"><span>Time-line has been changed</span></li>--}}
-{{--                                            <li class="widget-49-meeting-item"><span>Received approval to start wire-frame</span></li>--}}
-{{--                                        </ol>--}}
-{{--                                        <div class="widget-49-meeting-action">--}}
-{{--                                            <a href="#" class="btn btn-sm btn-flash-border-success">View All</a>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"><a href="/home/notification?sort=sender_name" @if($sort_name=='tag_name')style="font-weight: 900;"@endif>From @if($sort_name=='tag_name'){!!$sort_ascdesc_img!!}@endif</a></th>
+{{--                                <th scope="col">Message</th>--}}
+                                <th scope="col"><a href="/home/notification?sort=date" @if($sort_name=='date')style="font-weight: 900;"@endif>Date @if($sort_name=='date'){!!$sort_ascdesc_img!!}@endif</a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @php $counter = 1; if($page_num != "All"){$counter = ((($tagList->currentPage() - 1) * $page_num) + 1);};  @endphp
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="7">
+                                    {{--                                                    @include('layouts.navbars.paging',[--}}
+                                    {{--                                                        'records'=>$tagList--}}
+                                    {{--                                                    ])--}}
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
 
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
     <script>
-        var options = {
-            valueNames: [ 'name', 'born' ]
-        };
+       $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".dropdown-menu li").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
 
-        var userList = new List('users', options);
+       $(document).ready(function() {
+
+           $("#SearchToggle").click(function(){
+               $(".clsDivSearch").toggle();
+
+           })
+
+           $( "#SearchMessageDateFrom" ).datepicker({changeYear: true , yearRange: '2010:<?=Date("Y", time())+1?>', dateFormat: 'dd-mm-yy'});
+           $( "#SearchMessageDateTo" ).datepicker({changeYear: true , yearRange: '2010:<?=Date("Y", time())+1?>', dateFormat: 'dd-mm-yy'});
+
+
+       });
     </script>
 
 @stop

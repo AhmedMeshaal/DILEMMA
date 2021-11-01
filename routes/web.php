@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('dashboard');
 })->middleware('auth');
 
-Route::get('/tags-list', function () {
+Route::get('/tags', function () {
     return view('tagged.tags');
 });
 
@@ -49,5 +49,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/requests/display-request-image/{request_id}', [RequestsController::class, 'display_request_image'])->name('request_file');
 
 
-Route::get('/tagged/tags-list', [TagController::class, 'tag']);
+Route::get('/tagged/tags', [TagController::class, 'tag']);
+Route::post('/tagged/tags', [TagController::class, 'tag']);
 Route::get('/tagged/tagged_request/{tag_id}', [TagController::class, 'tagged_request']);
