@@ -443,8 +443,8 @@
 
                     <div class="row list">
 
-                        <h3 class="mb-0">There are {{ $tagList->total() }} tag/s</h3>
-                        @php $counter = 1; if($page_num != "All"){$counter = ((($tagList->currentPage() - 1) * $page_num) + 1);};  @endphp
+                        <h3 class="mb-0">There are {{ $tagsListAll->total() }} tag/s</h3>
+{{--                        @php $counter = 1; if($page_num != "All"){$counter = ((($tagsList->currentPage() - 1) * $page_num) + 1);};  @endphp--}}
                         @foreach($tagList as $tag)
 
                             <div class="col-lg-4">
@@ -478,33 +478,6 @@
                         </div>
 
                         @endforeach
-
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col"><a href="/home/notification?sort=sender_name" @if($sort_name=='tag_name')style="font-weight: 900;"@endif>From @if($sort_name=='tag_name'){!!$sort_ascdesc_img!!}@endif</a></th>
-{{--                                <th scope="col">Message</th>--}}
-                                <th scope="col"><a href="/home/notification?sort=date" @if($sort_name=='date')style="font-weight: 900;"@endif>Date @if($sort_name=='date'){!!$sort_ascdesc_img!!}@endif</a></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            @php $counter = 1; if($page_num != "All"){$counter = ((($tagList->currentPage() - 1) * $page_num) + 1);};  @endphp
-
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="7">
-                                    {{--                                                    @include('layouts.navbars.paging',[--}}
-                                    {{--                                                        'records'=>$tagList--}}
-                                    {{--                                                    ])--}}
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
-
-
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>

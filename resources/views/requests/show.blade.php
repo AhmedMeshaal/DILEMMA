@@ -7,15 +7,13 @@
     </thead>
 
     <ul>
-        <li>{{ $arrRecordData->ID }}</li>
-{{--        <li>{{ $arrRecordData->RequestOwnerID }}</li>--}}
-        <li>{{ $arrRecordData->RequestSubject }}</li>
-        <li>{{ $arrRecordData->RequestDescription }}</li>
-        <li>{{ $arrRecordData->RequestStatus }}</li>
-{{--        <li>{{ $arrRecordData->RequestRangeCost }}</li>--}}
-{{--        <li>{{ $arrRecordData->RequestDate }}</li>--}}
-{{--        <li>{{ $arrRecordData->AppoinmentDate }}</li>--}}
-        <li><img src="/requests/display-request-image/{{ $arrRecordData->ID }}"></li>
+
+
+        <li>{{ $record->ID }}</li>
+        <li>{{ $record->RequestSubject }}</li>
+        <li>{{ $record->TagName }}</li>
+
+
     </ul>
 
 {{--    <a href="route{{ request_file }}">request image</a>--}}

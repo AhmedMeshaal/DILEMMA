@@ -30,9 +30,11 @@ class RequestsController extends Controller
         {
             $request_id = request('request_id');
 
-            $singleRecord = DB::table('requests')->find($request_id);
-//            print_r($singleRecord);
-            return view('requests.show', ['arrRecordData' => $singleRecord]);
+            $arrRecord = DB::table('requests')->leftJoin('tag', 'requests.TagID', '=', 'tag.ID')->select('requests.*', 'tag.Name as TagName')->where('requests.ID', '=', $request_id)->first();
+
+//            print_r($arrRecord); exit();
+
+            return view('requests.show', ['record' => $arrRecord]);
         }
 
 //        VIEW CREATE FORM PAGE
@@ -51,6 +53,7 @@ class RequestsController extends Controller
             $Status = request('RequestStatus');
             $Offer = request('OfferPrice');
             $Appointment = request('AppointmentDate');
+            $WrittenDate = request('WrittenDate');
             $DocumentName = request('DocumentName');
 
             $arrInsert = array(
@@ -62,13 +65,14 @@ class RequestsController extends Controller
                 'OfferPrice' => $Offer,
                 'DateSubmitted' => Date("Y-m-d H:i:s", time()),
                 'AppointmentDate' => $Appointment,
+                'WrittenDate' => $WrittenDate,
                 'DocumentName' => $DocumentName
                 );
 
+//            print_r($arrInsert); exit();
+
             $path = $request->file('FilePath')->store('FilePath');
             $arrInsert['FilePath'] = $path;
-
-//            print_r($arrInsert); exit();
 
             DB::table("Requests")->insert($arrInsert);
 
@@ -81,14 +85,17 @@ class RequestsController extends Controller
         {
             $request_id =  request('request_id');
 
-            $request = DB::table('requests')->find($request_id);
+
+            $arrRequests = DB::table('requests')->find($request_id);
             $arrTags = DB::table('tag')->get();
+
 
             return view('requests.edit',[
                 'request_id'=>$request_id,
-                'request'=>$request,
                 'tags' => $arrTags,
+                'requests'=>$arrRequests,
             ]);
+
         }
 
 //        UPDATE THE RECORD IN DATABASE
@@ -98,17 +105,28 @@ class RequestsController extends Controller
             $request_id =  request('request_id');
 
             $arrDataUpdate = array(
-                'RequestOwnerID' => request('RequestOwnerID'),
+
                 'RequestSubject' => request('RequestSubject'),
                 'RequestDescription' => request('RequestDescription'),
                 'RequestStatus' => request('RequestStatus'),
-                'RequestRangeCost' => request('RequestRangeCost'),
-                'RequestDate' => Date("Y-m-d H:i:s", time()),
-                'AppoinmentDate' => request('AppoinmentDate'),
+                'OfferPrice' => request('OfferPrice'),
+                'AppointmentDate' => request('AppointmentDate'),
+                'WrittenDate' => request('WrittenDate'),
                 'TagID' => request('TagID'),
-            );
+                'DocumentName' => request('DocumentName'),
+                'FilePath' => request('FilePath')
+                );
+
+            $path = $request->file('FilePath')->store('FilePath');
+            $arrDataUpdate['FilePath'] = $path;
+
+//            print_r($arrInsert); exit();
+
+//            DB::table("Requests")->update($arrInsert);
+
 
             DB::table('requests')->where('requests.ID', $request_id)->update($arrDataUpdate);
+
 
             return redirect('/requests/show/'.$request_id)->with('status', 'Record updated!');
         }
@@ -136,6 +154,6 @@ class RequestsController extends Controller
             return NULL;
         }
 
-     
+
 
 }

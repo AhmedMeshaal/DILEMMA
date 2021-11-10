@@ -38,7 +38,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        echo Auth::id();
+//        echo Auth::id();
         return view('auth.login');
     }
 

@@ -14,7 +14,7 @@ class Requests extends Model
         public $timestamps = false;
 
         protected $fillable = [
-          'ID','SubmittedBy', 'RequestSubject', 'RequestDescription', 'RequestStatus', 'OfferPrice', 'DateSubmitted', 'AppointmentDate', 'DocumentName', 'FilePath'
+          'ID','SubmittedBy', 'TagID', 'RequestSubject', 'RequestDescription', 'RequestStatus', 'OfferPrice', 'DateSubmitted', 'AppointmentDate', 'WrittenDate', 'DocumentName', 'FilePath'
         ];
     }
 
